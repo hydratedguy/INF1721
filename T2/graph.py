@@ -1,20 +1,25 @@
 class Graph:
     def __init__(self):
-        self.nodes = []
+        # self.nodes = {}
         self.edges = {}
         self.node_count = 0
         self.edge_count = 0
 
     def add_node(self, node):
-        if node not in self.nodes:
-            self.nodes.append(node)
+        if node not in self.edges:
+            self.edges[node] = []
             self.node_count += 1
 
     def add_edge(self, node1, node2):
-        if node1 not in self.edges:
+        if self.edges.get(node1, 0) == 0:
+            self.node_count += 1
             self.edges[node1] = []
-        if node2 not in self.edges:
+        
+        if self.edges.get(node2, 0) == 0:
+            self.node_count += 1
             self.edges[node2] = []
+        
+        # Edges list size is max size 4
         if node2 not in self.edges[node1]:
             self.edges[node1].append(node2)
             self.edges[node2].append(node1)
