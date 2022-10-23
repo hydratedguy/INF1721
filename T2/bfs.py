@@ -2,23 +2,23 @@
 # the graph structure implemented on graph.py
 
 def bfs(G, s):
-    visited = set()
+    visited = {}
     queue = [s]
     while queue:
         node = queue.pop(0)
-        if node not in visited:
-            visited.add(node)
-            queue.extend(G[node] - visited)
+        if visited.get(node, 0) == 0:
+            visited[node] = 1
+            queue.extend(G.edges[node])
     return visited
 
 
 def connected_components(G):
     components = []
-    visited = set()
-    for node in G:
-        if node not in visited:
+    visited = {}
+    for node in G.edges:
+        if visited.get(node, 0) == 0:
             component = bfs(G, node)
             components.append(component)
             visited.update(component)
+
     return components
-    
